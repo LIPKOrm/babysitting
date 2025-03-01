@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Baby-Sitters - Baby-sitting</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- AOS pour animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body>
+
+    <!-- Barre de navigation -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="baby-sitters.html">Nos baby-sitters</a></li>
+                <li><a href="inscription.html">Réservation</a></li>
+                <li><a href="avis.html">Avis</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Section des baby-sitters -->
+    <section class="sitters-section">
+        <h2 data-aos="fade-up">Nos Baby-Sitters Disponibles</h2>
+        
+        <div class="sitter-card" data-aos="fade-up">
+            <img src="https://via.placeholder.com/150" alt="Photo Baby-Sitter 1">
+            <div class="sitter-info">
+                <h3>Marie Dupont</h3>
+                <p><strong>Âge :</strong> 24 ans</p>
+                <p><strong>Expérience :</strong> 3 ans</p>
+                <p><strong>Tarif :</strong> 12€ /h</p>
+                <p><strong>Disponibilité :</strong> Lundi - Vendredi, 9h - 18h</p>
+                <p><strong>Langues parlées :</strong> Français, Anglais</p>
+                <a href="inscription.html" class="btn">Réserver</a>
+            </div>
+        </div>
+
+        <div class="sitter-card" data-aos="fade-up">
+            <img src="https://via.placeholder.com/150" alt="Photo Baby-Sitter 2">
+            <div class="sitter-info">
+                <h3>Paul Lefevre</h3>
+                <p><strong>Âge :</strong> 28 ans</p>
+                <p><strong>Expérience :</strong> 5 ans</p>
+                <p><strong>Tarif :</strong> 15€ /h</p>
+                <p><strong>Disponibilité :</strong> Samedis et Dimanches, 10h - 20h</p>
+                <p><strong>Langues parlées :</strong> Français</p>
+                <a href="inscription.html" class="btn">Réserver</a>
+            </div>
+        </div>
+
+        <!-- Ajouter d'autres cartes de baby-sitters ici -->
+    </section>
+
+    <!-- Script pour activer AOS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

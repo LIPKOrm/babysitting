@@ -1,0 +1,480 @@
+/* Réinitialisation */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Header */
+header {
+    width: 100%;
+    background-color: #333; /* Gris foncé pour l'en-tête */
+    padding: 20px;
+    text-align: center;
+}
+
+header {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url('https://source.unsplash.com/1600x900/?family,kids') center/cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    height: 100vh;
+}
+
+/* Barre de navigation */
+nav {
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #f4a261; /* Couleur hover */
+}
+
+/* Section héro */
+.hero {
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Bouton */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #f4a261;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 30px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #e76f51;
+}
+
+/* Formulaire - Structure page s'inscrire */
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container du formulaire */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding-top: 100px; /* Marge en haut pour l'espace avec la navigation */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url('https://source.unsplash.com/1600x900/?kids') center/cover;
+}
+
+/* Formulaire de réservation */
+form {
+    max-width: 350px; /* Réduit la largeur du formulaire */
+    margin: 50px auto; /* Centre le formulaire */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fond léger pour le formulaire */
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacement entre les éléments */
+}
+
+/* Champs de formulaire */
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    font-weight: bold;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;  /* Réduit la taille du texte dans les champs */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Bouton dans le formulaire */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #f4a261;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #e76f51;
+}
+
+/* Form Box */
+.form-box {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.form-box h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-box p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+/* PAGE POUR BABY-SITTERS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Barre de navigation */
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Section d'introduction */
+.hero {
+    background-color: #3498db;
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero-content h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.hero-content .btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+}
+
+.hero-content .btn:hover {
+    background-color: #c0392b;
+}
+
+/* Section des baby-sitters */
+.sitters-section {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.sitters-section h2 {
+    font-size: 2em;
+    margin-bottom: 40px;
+}
+
+.sitter-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    transition: transform 0.3s ease;
+}
+
+.sitter-card:hover {
+    transform: scale(1.05);
+}
+
+.sitter-card img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.sitter-info h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.sitter-info p {
+    margin: 5px 0;
+}
+
+.sitter-info .btn {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 15px;
+}
+
+.sitter-info .btn:hover {
+    background-color: #3498db;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    background-color: #2c3e50;
+    color: white;
+    padding: 10px;
+    margin-top: 40px;
+}
+
+
+
+/* PAGE d'avis */
+/* Réinitialisation */
+body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Gris clair */
+            color: #333; /* Texte noir/gris foncé */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* En-tête et navigation */
+        header {
+            background-color: #333; /* Noir */
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header nav {
+            margin-top: 10px;
+        }
+
+        header nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Bulle d'avis */
+        .avis-client {
+            background-color: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 15px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .avis-client h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .avis-client p {
+            font-size: 16px;
+            margin: 10px 0;
+            color: #666;
+        }
+
+        /* Icônes de gestion d'avis */
+        .avis-client .actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            color: #007BFF;
+            cursor: pointer;
+        }
+
+        .avis-client .actions i {
+            margin-left: 10px;
+        }
+
+        .form-avis {
+            background-color: white;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 15px;
+            border: 1px solid #ddd;
+            max-width: 800px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-avis input,
+        .form-avis textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .form-avis button {
+            padding: 12px 20px;
+            background-color: #333; /* Noir */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-avis button:hover {
+            background-color: #555;
+        }
+
+        /* Admin Form */
+        #adminForm {
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            max-width: 800px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #adminForm input {
+            padding: 12px;
+            width: 200px;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+
+        .timer {
+            color: red;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        footer {
+            background-color: #333; /* Noir */
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
