@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avis Clients - Baby-sitting</title>
     <link rel="stylesheet" href="style.css">
-    <!-- AOS pour animations -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
 
@@ -21,18 +19,10 @@
                 <li><a href="avis.html">Avis</a></li>
             </ul>
         </nav>
-
-        <!-- Section d'intro -->
-        <section class="hero" data-aos="fade-up">
-            <div class="hero-content">
-                <h1>Les avis de nos clients</h1>
-                <p>Découvrez les retours d'expérience de ceux qui nous ont fait confiance.</p>
-            </div>
-        </section>
     </header>
 
     <!-- Section des avis -->
-    <div id="avisList" style="max-width: 800px; margin: auto; padding: 20px;" data-aos="fade-up">
+    <div id="avisList" style="max-width: 800px; margin: auto; padding: 20px;">
         <h2>Témoignages récents</h2>
         <!-- Les avis s'afficheront ici -->
     </div>
@@ -40,7 +30,7 @@
     <!-- Formulaire pour écrire un avis -->
     <div class="form-avis" style="max-width: 800px; margin: auto; padding: 20px;">
         <h3>Écrivez un avis</h3>
-        <form id="formAvis" action="javascript:void(0);">
+        <form id="formAvis">
             <label for="nom">Votre nom :</label>
             <input type="text" id="nom" name="nom" required>
 
@@ -51,160 +41,113 @@
         </form>
     </div>
 
-    <!-- Formulaire pour entrer le code administrateur -->
+    <!-- Formulaire admin -->
     <div id="adminForm" style="display: none; max-width: 800px; margin: auto; padding: 20px;">
         <h3>Entrer le code administrateur :</h3>
-        <input type="text" id="adminCode" placeholder="Code Administrateur (4 chiffres)" maxlength="4" />
+        <input type="text" id="adminCode" placeholder="Code Admin (4 chiffres)" maxlength="4">
         <button onclick="validerCode()">Valider</button>
     </div>
 
-    <div id="timer" class="timer" style="display: none; max-width: 800px; margin: auto; padding: 20px;">
-        Vous avez 1 minute pour modifier ou supprimer les avis !
-        <div id="countdown"></div>
-    </div>
-
-    <footer style="text-align: center; padding: 20px;">
-        <p>&copy; 2025 Baby-sitting Service | Tous droits réservés</p>
-    </footer>
-
-    <!-- Script pour activer AOS -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init();
-        
-        var adminCode = "0000"; // Code administrateur par défaut
-        var timerInterval;
-        var remainingTime = 60; // Temps de 1 minute
+        // Connexion à Supabase
+        const supabaseUrl = "https://vrkhhoodjwufevqphfbz.supabase.co";
+        const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZya2hob29kand1ZmV2cXBoZmJ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA4NzI1NjUsImV4cCI6MjA1NjQ0ODU2NX0.aottQjbVGHpJNENxAot8G7HwIEQpipAOn-D7Fz5TL_Y";
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-        // Fonction pour afficher les avis stockés dans localStorage
-        function afficherAvis() {
-            var avisList = document.getElementById("avisList");
-            avisList.innerHTML = ''; // Vider la liste des avis avant de les recharger
+        let adminCode = "0000"; // Code admin par défaut
 
-            var avisStockes = JSON.parse(localStorage.getItem("avis")) || [];
+        // Afficher les avis depuis Supabase
+        async function afficherAvis() {
+            let { data: avis, error } = await supabase.from("avis").select("*");
+            if (error) {
+                console.error("Erreur lors du chargement des avis:", error);
+                return;
+            }
 
-            avisStockes.forEach(function(avis, index) {
-                var avisClient = document.createElement("div");
+            let avisList = document.getElementById("avisList");
+            avisList.innerHTML = '<h2>Témoignages récents</h2>'; // Réinitialiser la liste des avis
+
+            avis.forEach((avis) => {
+                let avisClient = document.createElement("div");
                 avisClient.classList.add("avis-client");
-
-                var titreAvis = document.createElement("h3");
-                titreAvis.textContent = "Avis de " + avis.nom;
-                avisClient.appendChild(titreAvis);
-
-                var contenuAvis = document.createElement("p");
-                contenuAvis.textContent = avis.avis;
-                avisClient.appendChild(contenuAvis);
-
-                var actions = document.createElement("div");
-                actions.classList.add("actions");
-
-                // Icône poubelle pour supprimer
-                var iconeSupprimer = document.createElement("i");
-                iconeSupprimer.classList.add("fas", "fa-trash");
-                iconeSupprimer.onclick = function() {
-                    demanderCode("supprimer", index);
-                };
-                actions.appendChild(iconeSupprimer);
-
-                // Icône stylo pour modifier
-                var iconeModifier = document.createElement("i");
-                iconeModifier.classList.add("fas", "fa-edit");
-                iconeModifier.onclick = function() {
-                    demanderCode("modifier", index);
-                };
-                actions.appendChild(iconeModifier);
-
-                avisClient.appendChild(actions);
+                avisClient.innerHTML = `
+                    <h3>Avis de ${avis.nom}</h3>
+                    <p>${avis.message}</p>
+                    <div class="actions">
+                        <i class="fas fa-trash" onclick="demanderCode('supprimer', ${avis.id})"></i>
+                        <i class="fas fa-edit" onclick="demanderCode('modifier', ${avis.id})"></i>
+                    </div>
+                `;
                 avisList.appendChild(avisClient);
             });
         }
 
-        // Fonction pour supprimer un avis
-        function supprimerAvis(index) {
-            var avisStockes = JSON.parse(localStorage.getItem("avis")) || [];
-            avisStockes.splice(index, 1);
-            localStorage.setItem("avis", JSON.stringify(avisStockes));
-            afficherAvis();
-        }
+        // Ajouter un nouvel avis
+        document.getElementById("formAvis").addEventListener("submit", async function(event) {
+            event.preventDefault();
 
-        // Fonction pour modifier un avis
-        function modifierAvis(index) {
-            var avisStockes = JSON.parse(localStorage.getItem("avis")) || [];
-            var avis = avisStockes[index];
+            let nom = document.getElementById("nom").value;
+            let avis = document.getElementById("avis").value;
 
-            var nouveauNom = prompt("Modifiez votre nom :", avis.nom);
-            var nouveauAvis = prompt("Modifiez votre avis :", avis.avis);
+            let { error } = await supabase.from("avis").insert([{ nom: nom, message: avis }]);
 
-            if (nouveauNom && nouveauAvis) {
-                avisStockes[index] = { nom: nouveauNom, avis: nouveauAvis };
-                localStorage.setItem("avis", JSON.stringify(avisStockes));
+            if (error) {
+                console.error("Erreur lors de l'ajout:", error);
+            } else {
+                afficherAvis();
+                document.getElementById("formAvis").reset();
+            }
+        });
+
+        // Supprimer un avis
+        async function supprimerAvis(id) {
+            let { error } = await supabase.from("avis").delete().eq("id", id);
+            if (error) {
+                console.error("Erreur lors de la suppression:", error);
+            } else {
                 afficherAvis();
             }
         }
 
-        // Fonction pour demander le code administrateur avant de modifier ou supprimer un avis
-        function demanderCode(action, index) {
-            document.getElementById("adminForm").style.display = "block";
-            document.getElementById("adminCode").focus();
-            window.currentAction = { action: action, index: index }; // Conserver l'action et l'index
+        // Modifier un avis
+        async function modifierAvis(id) {
+            let nouveauNom = prompt("Modifiez votre nom :");
+            let nouveauAvis = prompt("Modifiez votre avis :");
+
+            if (nouveauNom && nouveauAvis) {
+                let { error } = await supabase.from("avis").update({ nom: nouveauNom, message: nouveauAvis }).eq("id", id);
+                if (error) {
+                    console.error("Erreur lors de la modification:", error);
+                } else {
+                    afficherAvis();
+                }
+            }
         }
 
-        // Fonction pour valider le code administrateur
+        // Demander code admin pour action
+        function demanderCode(action, id) {
+            document.getElementById("adminForm").style.display = "block";
+            document.getElementById("adminCode").focus();
+            window.currentAction = { action: action, id: id };
+        }
+
+        // Valider le code admin
         function validerCode() {
-            var code = document.getElementById("adminCode").value;
+            let code = document.getElementById("adminCode").value;
             if (code === adminCode) {
                 document.getElementById("adminForm").style.display = "none";
                 if (window.currentAction.action === "supprimer") {
-                    supprimerAvis(window.currentAction.index);
+                    supprimerAvis(window.currentAction.id);
                 } else if (window.currentAction.action === "modifier") {
-                    modifierAvis(window.currentAction.index);
+                    modifierAvis(window.currentAction.id);
                 }
             } else {
                 alert("Code incorrect !");
             }
         }
 
-        // Fonction pour démarrer le timer
-        function startTimer() {
-            timerInterval = setInterval(function() {
-                remainingTime--;
-                document.getElementById("countdown").textContent = remainingTime + " secondes restantes";
-
-                if (remainingTime <= 0) {
-                    clearInterval(timerInterval);
-                    document.getElementById("timer").style.display = "none";
-                    alert("Le temps est écoulé. Vous ne pouvez plus modifier ou supprimer les avis.");
-                }
-            }, 1000);
-        }
-
-        // Gestion de l'ajout d'un nouvel avis
-        document.getElementById("formAvis").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            var nom = document.getElementById("nom").value;
-            var avis = document.getElementById("avis").value;
-
-            if (nom && avis) {
-                var nouvelAvis = {
-                    nom: nom,
-                    avis: avis
-                };
-
-                var avisStockes = JSON.parse(localStorage.getItem("avis")) || [];
-                avisStockes.unshift(nouvelAvis);
-
-                localStorage.setItem("avis", JSON.stringify(avisStockes));
-                afficherAvis();
-
-                document.getElementById("formAvis").reset();
-            } else {
-                alert("Veuillez remplir tous les champs.");
-            }
-        });
-
+        // Charger les avis au démarrage
         afficherAvis();
-        startTimer(); // Démarre le timer dès que la page est chargée
     </script>
 
 </body>

@@ -5,59 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demande de réservation</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
-        emailjs.init("-uwW9ZfXV6s0I0A35"); // Clé publique
+        emailjs.init("-uwW9ZfXV6s0I0A35");
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const sitters = [
+                { name: "Marie Dupont" },
+                { name: "Paul Lefevre" }
+            ];
+            
+            const sitterSelect = document.getElementById('sitter');
+            sitters.forEach(sitter => {
+                let option = document.createElement("option");
+                option.value = sitter.name;
+                option.textContent = sitter.name;
+                sitterSelect.appendChild(option);
+            });
+        });
 
         function sendEmail(event) {
-            event.preventDefault(); // Empêche la soumission du formulaire par défaut
+            event.preventDefault();
 
-            // Récupération des valeurs du formulaire
             var name = document.getElementById('name').value;
             var email = document.getElementById('email').value;
             var phone = document.getElementById('phone').value;
-            var child_name = document.getElementById('child_name').value;
-            var age = document.getElementById('age').value;
+            var num_children = document.getElementById('num_children').value;
+            var children_details = document.getElementById('children_details').value;
             var reservation_date = document.getElementById('reservation_date').value;
             var reservation_time = document.getElementById('reservation_time').value;
             var message = document.getElementById('message').value;
+            var selected_sitter = document.getElementById('sitter').value;
 
-            // Données pour l'email au baby-sitter
             var babysitterParams = {
                 from_name: name,
                 from_email: email,
                 phone: phone,
-                child_name: child_name,
-                age: age,
+                num_children: num_children,
+                children_details: children_details,
                 reservation_date: reservation_date,
                 reservation_time: reservation_time,
-                message: message
+                message: message,
+                sitter_name: selected_sitter
             };
 
-            // Données pour l'email au client
             var clientParams = {
                 to_name: name,
                 reservation_date: reservation_date,
                 reservation_time: reservation_time,
                 from_email: email,
-                message: message
+                message: message,
+                sitter_name: selected_sitter
             };
 
-            // Envoi de l'email au baby-sitter
             emailjs.send("service_sd2b7tj", "template_cvwbf1b", babysitterParams)
                 .then(function(response) {
-                    console.log("Email au baby-sitter envoyé :", response);
-                    
-                    // Envoi de l'email au client après succès
                     return emailjs.send("service_sd2b7tj", "template_zkvbtxh", clientParams);
                 })
                 .then(function(response) {
-                    console.log("Email au client envoyé :", response);
-                    alert("Réservation envoyée avec succès !");
-                    window.location.href = "merci.html"; // Redirection après succès
+                    alert("Votre demande a bien été envoyée ! Vous allez être redirigé vers l'accueil.");
+                    setTimeout(function() {
+                        window.location.href = "index.html";
+                    }, 3000);
                 })
                 .catch(function(error) {
-                    console.error("Erreur lors de l'envoi des emails :", error);
                     alert("Une erreur est survenue lors de l'envoi de la réservation.");
                 });
         }
@@ -83,52 +94,45 @@
             <form id="reservationForm" onsubmit="sendEmail(event)">
                 <div class="input-group">
                     <label for="name">Nom et prénom :</label>
-                    <input type="text" id="name" name="name" required placeholder="Votre nom et prénom">
+                    <input type="text" id="name" name="name" required>
                 </div>
-
                 <div class="input-group">
                     <label for="email">Email :</label>
-                    <input type="email" id="email" name="email" required placeholder="Votre adresse email">
+                    <input type="email" id="email" name="email" required>
                 </div>
-
                 <div class="input-group">
                     <label for="phone">Téléphone :</label>
-                    <input type="tel" id="phone" name="phone" required placeholder="Votre numéro de téléphone">
+                    <input type="tel" id="phone" name="phone" required>
                 </div>
-
                 <div class="input-group">
-                    <label for="child_name">Nom de l'enfant :</label>
-                    <input type="text" id="child_name" name="child_name" required placeholder="Nom de l'enfant">
+                    <label for="sitter">Choisir un baby-sitter :</label>
+                    <select id="sitter" name="sitter" required>
+                        <option value="">Sélectionner un baby-sitter</option>
+                    </select>
                 </div>
-
                 <div class="input-group">
-                    <label for="age">Âge de l'enfant :</label>
-                    <input type="number" id="age" name="age" required placeholder="Âge de l'enfant">
+                    <label for="num_children">Nombre d'enfants :</label>
+                    <input type="number" id="num_children" name="num_children" required>
                 </div>
-
+                <div class="input-group">
+                    <label for="children_details">Détails sur les enfants :</label>
+                    <textarea id="children_details" name="children_details" required></textarea>
+                </div>
                 <div class="input-group">
                     <label for="reservation_date">Date de réservation :</label>
                     <input type="date" id="reservation_date" name="reservation_date" required>
                 </div>
-
                 <div class="input-group">
                     <label for="reservation_time">Heure de réservation :</label>
                     <input type="time" id="reservation_time" name="reservation_time" required>
                 </div>
-
                 <div class="input-group">
                     <label for="message">Message ou demande spéciale :</label>
-                    <textarea id="message" name="message" placeholder="Écrivez ici toute demande spéciale ou information supplémentaire"></textarea>
+                    <textarea id="message" name="message"></textarea>
                 </div>
-
                 <button type="submit" class="btn">Envoyer la demande</button>
             </form>
         </div>
     </section>
-
-    <footer>
-        <p>&copy; 2025 Baby-sitting Réservation - Tous droits réservés.</p>
-    </footer>
 </body>
 </html>
-
